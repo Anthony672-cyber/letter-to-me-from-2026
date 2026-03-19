@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secret Letter</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #111827;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+      color: #f9fafb;
+    }
+
+    .input-group {
+      margin: 20px 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      color: #9ca3af;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input[type="password"]:focus {
+      border-color: #3b82f6;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: none;
+      background: #3b82f6;
+      color: #f9fafb;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    .error {
+      color: #f97373;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      min-height: 1.2em;
+    }
+
+    .letter {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background: #020617;
+      border: 1px solid #1f2937;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="lock-screen">
+      <h1>Enter the Code</h1>
+      <div class="input-group">
+        <label for="code-input">Please enter the 4-digit code:</label>
+        <input type="password" id="code-input" maxlength="4" placeholder="••••" />
+      </div>
+      <button id="submit-btn">Unlock</button>
+      <div class="error" id="error-msg"></div>
+    </div>
+
+    <div id="letter-screen" class="hidden">
+      <h1>Your Letter</h1>
+      <div class="letter" id="letter-text">
+        <!-- Replace this text with your actual letter -->
+        Dear [Name],
+
+        This is where your letter goes. You can write anything you want here—
+        your thoughts, your feelings, your story.
+
+        With love,
+        [Your Name]
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CORRECT_CODE = "5422";
+
+    const codeInput = document.getElementById("code-input");
+    const submitBtn = document.getElementById("submit-btn");
+    const errorMsg = document.getElementById("error-msg");
+    const lockScreen = document.getElementById("lock-screen");
+    const letterScreen = document.getElementById("letter-screen");
+
+    function checkCode() {
+      const entered = codeInput.value.trim();
+      if (entered === CORRECT_CODE) {
+        errorMsg.textContent = "";
+        lockScreen.classList.add("hidden");
+        letterScreen.classList.remove("hidden");
+      } else {
+        errorMsg.textContent = "Incorrect code. Please try again.";
+        codeInput.value = "";
+        codeInput.focus();
+      }
+    }
+
+    submitBtn.addEventListener("click", checkCode);
+
+    codeInput.addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
+        checkCode();
+      }
+    });
+  </script>
+</body>
+</html>
